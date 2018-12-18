@@ -1,0 +1,25 @@
+- shell: jq --version
+  failed_when: false
+  register: jqt
+- package: {name: jq}
+  when: jqt.rc != 0
+- shell: cat {{fix_gitlab_config}}
+  register: gitlabrunnerconf
+- set_fact:
+    cfg: "{{gitlabrunnerconf.stdout|add_pre_clone_script(fix_gitlab_umask, vars)}}"
+- copy:
+    content: "{{cfg}}"
+    force: true
+    dest: "{{fix_gitlab_config}}"
+  when: "{{cfg|length> 0}}"
+- service:
+    name: gitlab-runner
+    state: restarted
+- template:
+    src: "templates/{{fix_gitlab_dest}}"
+    dest: "{{fix_gitlab_dest}}"
+    mode: "0755"
+- shell: "{{fix_gitlab_dest}}"
+  environment:
+    DRYRUN: "{{fix_gitlab_dryrun}}"
+    VOLUMEPATTERN: "{{fix_gitlab_mountpattern}}"

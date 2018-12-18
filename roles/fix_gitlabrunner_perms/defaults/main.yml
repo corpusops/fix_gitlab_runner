@@ -1,0 +1,6 @@
+---
+fix_gitlab_dest: /root/fix_ci_docker_perms.sh
+fix_gitlab_dryrun: ""
+fix_gitlab_mountpattern: "gitlab.*runner"
+fix_gitlab_umask: "0022"
+fix_gitlab_config: "/etc/gitlab-runner/config.toml"

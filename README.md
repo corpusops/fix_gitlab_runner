@@ -1,5 +1,5 @@
 # gitlab fixers
-
+**UNMAINTAINED/ABANDONED CODE / DO NOT USE**
 ## fix 1736
 - see [#1736](https://gitlab.com/gitlab-org/gitlab-runner/issues/1736)
     - see [defaults](./roles/fix_gitlabrunner_perms/defaults/main.yml)
